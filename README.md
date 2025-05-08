@@ -1,7 +1,16 @@
+## 🚀 Project Summary
 
-# 🚀 Terraform AWS Autoscaling Infrastructure
+This Terraform project automates the deployment of a scalable, highly available AWS infrastructure. It provisions:
 
-This project provisions a dynamic, scalable AWS architecture using Terraform.
+- A custom VPC with public subnets in multiple Availability Zones
+- Internet Gateway and Route Tables for public access
+- A Security Group allowing HTTP and SSH traffic
+- An EC2 Launch Template with user-defined configurations
+- An Auto Scaling Group (ASG) to manage instances dynamically
+- A Network Load Balancer (NLB) to distribute traffic across instances
+- An IAM Role and Instance Profile granting EC2 access to an S3 bucket
+
+The setup ensures high availability, fault tolerance, and easy scalability for cloud-native applications.
 
 ---
 
@@ -35,6 +44,34 @@ This project provisions a dynamic, scalable AWS architecture using Terraform.
 | `outputs.tf`        | Useful outputs (e.g., NLB DNS)                      |
 
 ---
+
+## 📐 Simplified Architecture
+
+            ┌─────────────┐
+            │   S3 Bucket │
+            └─────┬───────┘
+                  │
+          ┌───────▼────────┐
+          │  IAM Role +    │
+          │ Instance Profile │
+          └───────┬────────┘
+                  │
+        ┌─────────▼──────────┐
+        │    Auto Scaling    │
+        │     EC2 Group      │
+        └──────▲──────▲──────┘
+               │      │
+       ┌───────┘      └───────┐
+       ▼                     ▼
+┌────────────┐       ┌────────────┐
+│  Subnet A  │       │  Subnet B  │
+└─────┬──────┘       └─────┬──────┘
+      ▼                    ▼
+   ┌──────────────────────────┐
+   │   Network Load Balancer │
+   └──────────────────────────┘
+
+
 
 ## 🧪
 
